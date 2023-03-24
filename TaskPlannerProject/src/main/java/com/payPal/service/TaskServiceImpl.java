@@ -1,10 +1,12 @@
 package com.payPal.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.payPal.exception.TaskException;
 import com.payPal.model.Task;
 import com.payPal.repository.TaskRepository;
 
@@ -25,26 +27,49 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	public List<Task> getAllTasks() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Task> list = taskRepo.findAll();
+		
+		if (list.size() == 0) {
+			throw new TaskException("No tasks added yet!");
+		}else {
+			return list;
+		}
 	}
 
 	@Override
 	public Task getTasksById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Task> opt = taskRepo.findById(id);
+		if (opt.isEmpty()) {
+			throw new TaskException("No task found with this id");
+		}else {
+			return opt.get();
+		}
 	}
 
 	@Override
 	public Task updateTask(Integer id, Task task) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Task> opt = taskRepo.findById(id);
+		if (opt.isEmpty()) {
+			throw new TaskException("No task found with this id");
+		}else {
+			opt.get().setTitle(task.getTitle());
+			opt.get().setType(task.getType());
+			opt.get().setDueDate(task.getDueDate());
+			opt.get().setDescription(task.getDescription());
+			
+			return opt.get();
+		}
 	}
 
 	@Override
 	public String deleteTask(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Task> opt = taskRepo.findById(id);
+		if (opt.isEmpty()) {
+			throw new TaskException("No task found with this id");
+		}else {
+			taskRepo.deleteById(id);
+			return "Task deleted successfully !";
+		}
 	}
 	
 	
