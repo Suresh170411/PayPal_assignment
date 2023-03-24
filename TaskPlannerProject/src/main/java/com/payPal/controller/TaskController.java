@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.payPal.dto.CountType;
 import com.payPal.model.Task;
 import com.payPal.service.TaskService;
 
@@ -45,5 +46,10 @@ public class TaskController {
 	@DeleteMapping("/task/{id}")
 	public ResponseEntity<String> deleteTaskHandler(@PathVariable ("id") Integer id){
 		return new ResponseEntity<String>(taskService.deleteTask(id),HttpStatus.OK);
+	}
+	
+	@GetMapping("/task/data/percent")
+	public ResponseEntity<List<CountType>> getTaskByTypePercentageHandler(){
+		return new ResponseEntity<List<CountType>>(taskService.getPercentageByType(),HttpStatus.OK);
 	}
 }

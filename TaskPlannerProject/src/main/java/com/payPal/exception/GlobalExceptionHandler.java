@@ -14,7 +14,13 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 public class GlobalExceptionHandler {
 
 	@ExceptionHandler(TaskException.class)
-	public ResponseEntity<ErrorDetails> loginException(TaskException e, WebRequest wr) {
+	public ResponseEntity<ErrorDetails> taskException(TaskException e, WebRequest wr) {
+		ErrorDetails ed = new ErrorDetails(LocalDateTime.now(), e.getMessage(), wr.getDescription(false));
+		return new ResponseEntity<ErrorDetails>(ed, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(PersonException.class)
+	public ResponseEntity<ErrorDetails> personException(PersonException e, WebRequest wr) {
 		ErrorDetails ed = new ErrorDetails(LocalDateTime.now(), e.getMessage(), wr.getDescription(false));
 		return new ResponseEntity<ErrorDetails>(ed, HttpStatus.BAD_REQUEST);
 	}

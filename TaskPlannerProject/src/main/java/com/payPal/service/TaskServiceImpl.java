@@ -1,11 +1,13 @@
 package com.payPal.service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.payPal.dto.CountType;
 import com.payPal.exception.TaskException;
 import com.payPal.model.Task;
 import com.payPal.repository.TaskRepository;
@@ -20,6 +22,7 @@ public class TaskServiceImpl implements TaskService {
 	@Autowired
 	private TaskRepository taskRepo;
 
+	
 	@Override
 	public Task addTask(Task task) {
 		return taskRepo.save(task);
@@ -32,6 +35,7 @@ public class TaskServiceImpl implements TaskService {
 		if (list.size() == 0) {
 			throw new TaskException("No tasks added yet!");
 		}else {
+			Collections.reverse(list);
 			return list;
 		}
 	}
@@ -57,7 +61,7 @@ public class TaskServiceImpl implements TaskService {
 			opt.get().setDueDate(task.getDueDate());
 			opt.get().setDescription(task.getDescription());
 			
-			return opt.get();
+			return taskRepo.save(opt.get());
 		}
 	}
 
@@ -72,5 +76,9 @@ public class TaskServiceImpl implements TaskService {
 		}
 	}
 	
+	@Override
+	public List<CountType> getPercentageByType() {
+		return taskRepo.getTasksByType();
+	}
 	
 }
