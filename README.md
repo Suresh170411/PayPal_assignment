@@ -29,7 +29,10 @@ hassle free.
 - Lombok
 - Maven
 
-
+- See the swagger documentation
+```
+http://localhost:8888/swagger-ui/index.html
+```
 
 ## API Root and Endpoint
 
