@@ -24,6 +24,7 @@ hassle free.
 - Spring Data JPA
 - Spring Web
 - Spring Security
+- JWT Authentication
 - Devtools
 - MySQL
 - Lombok
