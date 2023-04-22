@@ -29,6 +29,7 @@ hassle free.
 - MySQL
 - Lombok
 - Maven
+- Swagger
 
 ## Swagger Documentation
 ```
